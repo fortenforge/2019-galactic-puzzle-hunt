@@ -39,29 +39,27 @@ var main = function() {
         var requestData = {"round_number": round_number,
                            "answer_guess": answer_guess,
                            "tag": tag};
+        raceForTheGalaxyServer.getPuzzle(requestData, function(responseData){
+            console.log(responseData);
+            if(responseData.error.length > 0){
+                $('#error').show();
+                $('#error').html(responseData.error);
+            }else if(responseData.victory.length > 0) {
+                $('#puzzle_start').hide();
+                $('#puzzle_main').hide();
+                $('#victory').html(responseData.victory);
+            }else{
+                $('#answer').val('');
+                $('#puzzle_start').hide();
+                
+                $('#puzzle_body').html(responseData.puzzle_html);
 
-        $.post(PUZZLE_URL, requestData,
-            function(response){
-                var responseData = $.parseJSON(response);
-                if(responseData.error.length > 0){
-                    $('#error').show();
-                    $('#error').html(responseData.error);
-                }else if(responseData.victory.length > 0) {
-                    $('#puzzle_start').hide();
-                    $('#puzzle_main').hide();
-                    $('#victory').html(responseData.victory);
-                }else{
-                    $('#answer').val('');
-                    $('#puzzle_start').hide();
-                    
-                    $('#puzzle_body').html(responseData.puzzle_html);
+                setTimer(responseData.time_left);
+                tag = responseData.tag;
 
-                    setTimer(responseData.time_left);
-                    tag = responseData.tag;
-
-                    $('#puzzle_main').show();
-                }
-            });
+                $('#puzzle_main').show();
+            }
+        });
     }
 
     function formatTime(minutes, seconds){
