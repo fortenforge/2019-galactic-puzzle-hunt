@@ -1,4 +1,3 @@
-var START_URL = "/puzzle/race-for-the-galaxy/start";
 var PUZZLE_URL = "/puzzle/race-for-the-galaxy/puzzle";
 var GRID_WIDTH = 11;
 var GRID_HEIGHT = 11;
@@ -12,29 +11,27 @@ var main = function() {
         $('#error').hide();
         $('#puzzle_main').hide();
         var requestData = {};
-        $.post(START_URL, requestData,
-            function(response){
-                var responseData = $.parseJSON(response);
-                if(responseData.error.length > 0){
-                    $('#error').show();
-                    $('#error').html(responseData.error);
-                }else{
-                    $('#puzzle_start').show();
-                    var secondsPassed = responseData.seconds_passed;
-                    var secondsUntilNext = responseData.seconds_until_next;
-                    curRound = responseData.round_number;
-                    $('#current_race').html("The current race started " + 
-                                            Math.floor(secondsPassed/60) + 
-                                            " minutes and " +
-                                            (secondsPassed%60) +
-                                            " seconds ago.");
-                    $('#next_race').html("The next race will start in  " + 
-                                            Math.floor(secondsUntilNext/60) + 
-                                            " minutes and " +
-                                            (secondsUntilNext%60) +
-                                            " seconds.");
-                }
-            });
+        raceForTheGalaxyServer.getStart(requestData, function(responseData) {
+            if(responseData.error.length > 0){
+                $('#error').show();
+                $('#error').html(responseData.error);
+            }else{
+                $('#puzzle_start').show();
+                var secondsPassed = responseData.seconds_passed;
+                var secondsUntilNext = responseData.seconds_until_next;
+                curRound = responseData.round_number;
+                $('#current_race').html("The current race started " + 
+                                        Math.floor(secondsPassed/60) + 
+                                        " minutes and " +
+                                        (secondsPassed%60) +
+                                        " seconds ago.");
+                $('#next_race').html("The next race will start in  " + 
+                                        Math.floor(secondsUntilNext/60) + 
+                                        " minutes and " +
+                                        (secondsUntilNext%60) +
+                                        " seconds.");
+            }
+        });
     }
 
     var getPuzzle = function(round_number, answer_guess){
