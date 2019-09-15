@@ -40,7 +40,6 @@ var main = function() {
                            "answer_guess": answer_guess,
                            "tag": tag};
         raceForTheGalaxyServer.getPuzzle(requestData, function(responseData){
-            console.log(responseData);
             if(responseData.error.length > 0){
                 $('#error').show();
                 $('#error').html(responseData.error);
@@ -88,6 +87,7 @@ var main = function() {
     }
 
     $('#answer_puzzle').on('submit', function(){
+        console.log('submit');
         getPuzzle(curRound, $('#answer').val());
         return false;
     });
