@@ -1,3 +1,4 @@
+// Note: The code below contains spoilers for the puzzle Race for the Galaxy!
 var raceForTheGalaxyServer = (function() {
     var STARTNAME = 'RACESTART'
     var GLOBAL_START = Math.floor(new Date(2019, 2, 27, 21, 0).getTime()/1000);
@@ -60,27 +61,14 @@ var raceForTheGalaxyServer = (function() {
         var puzzle_index = 0
         var puzzletag = requestData.tag.trim().toUpperCase();
 
-        console.log(answers.concat(meta_answer));
-
         if (answers.indexOf(puzzlename) > -1) {
             puzzle_index = answers.indexOf(puzzlename) + 1;
             var puzzle_close = (round_start + PUZZLE_CLOSE_UNIT*PUZZLE_CLOSES[puzzle_index]);
-            /*
-            team = get_team_or_none_from_request(request)
-            if team is not None:
-                if dt.datetime.now() <= puzzle_close:
-                    webhook_post(team, round_number, puzzle_index, (puzzle_close-dt.datetime.now()).seconds)
-                else:
-                    webhook_post_fail(team, round_number, puzzle_index, (dt.datetime.now()-puzzle_close).seconds)
-            */
         } else if (puzzlename == meta_answer) {
             if (puzzletag == meta_tag) {
                 if (dateNow() > meta_close) {
                     return callback(error("Sorry, you were too slow."));
                 } else {
-                    /*team = get_team_or_none_from_request(request)
-                    if team is not None:
-                        webhook_post_meta(team, round_number, (meta_close-dt.datetime.now()).seconds)*/
                     return callback(victory('Congratulations on completing the race! The answer to this puzzle is STRONGER.'));
                 }
             } else {
@@ -114,7 +102,6 @@ var raceForTheGalaxyServer = (function() {
             time_left = next_puzzle_close - dateNow();
         }
 
-        console.log('time_left', time_left);
 
         var [puzzle_type, puzzle, _] = puzzle_round[puzzle_index];
         var puzzle_html = PUZZLE_TEMPLATE.render(

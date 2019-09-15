@@ -1,6 +1,6 @@
+// Note: The code below contains spoilers for the puzzle Race for the Galaxy!
 var PUZZLE_TEMPLATE = (function() {
     function render(args) {
-        console.log(args);
         var puzzle_type = args.puzzle_type;
         var puzzle_num = args.puzzle_num;
         var puzzle = args.puzzle;

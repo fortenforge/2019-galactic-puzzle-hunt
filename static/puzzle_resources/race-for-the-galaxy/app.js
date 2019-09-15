@@ -1,3 +1,4 @@
+// Note: The code below contains spoilers for the puzzle Race for the Galaxy!
 var PUZZLE_URL = "/puzzle/race-for-the-galaxy/puzzle";
 var GRID_WIDTH = 11;
 var GRID_HEIGHT = 11;
@@ -87,13 +88,11 @@ var main = function() {
     }
 
     $('#answer_puzzle').on('submit', function(){
-        console.log('submit');
         getPuzzle(curRound, $('#answer').val());
         return false;
     });
 
     $('#join_race').click(function(){
-        console.log("joining race...");
         getPuzzle(curRound, START_CODE);
         return false;
     });
