@@ -463,5 +463,8 @@ tr:last-child td {
 }
 
 .hint-preview-text {
+  cursor:pointer;
+  color:#4f6a95;
+  text-decoration:underline;
   font-weight: bold;
 }
